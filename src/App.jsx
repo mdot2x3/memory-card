@@ -2,6 +2,7 @@ import "./styles/App.css";
 import { useState, useEffect } from "react";
 import Card from "./components/Card.jsx";
 
+// utility function to shuffle an array in place using the Fisher-Yates algorithm
 function shuffle(array) {
   // create a shallow copy (original unmodified)
   const arr = [...array];
@@ -28,9 +29,10 @@ function App() {
         console.log(fetchData);
         const shuffled = shuffle(fetchData);
         const selected = shuffled.slice(0, 12);
-        // for each item in selected, map a new object with imageUrl and tagName to state
+        // for each item in selected, map a new object to state
         setImageSrc(
           selected.map((item) => ({
+            id: item._id,
             imageUrl: item.imageUrl,
             tagName: item.tagName,
           })),
@@ -42,11 +44,20 @@ function App() {
     fetchImages();
   }, []);
 
+  const handleClick = () => {
+    setImageSrc((prev) => shuffle(prev));
+  };
+
   return (
     <>
       <div className="card-container">
-        {imageSrc.map((item, idx) => (
-          <Card key={idx} imageUrl={item.imageUrl} tagName={item.tagName} />
+        {imageSrc.map((item) => (
+          <Card
+            key={item.id}
+            imageUrl={item.imageUrl}
+            tagName={item.tagName}
+            onClick={handleClick}
+          />
         ))}
       </div>
     </>
