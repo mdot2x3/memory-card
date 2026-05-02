@@ -18,6 +18,8 @@ function shuffle(array) {
 
 function App() {
   const [imageSrc, setImageSrc] = useState([]);
+  const [clickedCards, setClickedCards] = useState([]);
+  const [bestScore, setBestScore] = useState(0);
 
   useEffect(() => {
     async function fetchImages() {
@@ -44,8 +46,28 @@ function App() {
     fetchImages();
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (id) => {
     setImageSrc((prev) => shuffle(prev));
+    scoreHandler(id);
+  };
+
+  const scoreHandler = (id) => {
+    if (clickedCards.includes(id)) {
+      gameOver();
+    } else {
+      const newClicked = [...clickedCards, id];
+      setClickedCards(newClicked);
+      setBestScore((prevBest) => Math.max(prevBest, newClicked.length));
+      console.log(newClicked.length);
+      console.log(bestScore);
+    }
+  };
+
+  const gameOver = () => {
+    alert("Game Over. Click OK to try again!");
+    setClickedCards([]);
+    console.log(clickedCards.length);
+    console.log(bestScore);
   };
 
   return (
@@ -56,7 +78,7 @@ function App() {
             key={item.id}
             imageUrl={item.imageUrl}
             tagName={item.tagName}
-            onClick={handleClick}
+            onClick={() => handleClick(item.id)}
           />
         ))}
       </div>
