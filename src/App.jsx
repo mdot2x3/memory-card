@@ -1,6 +1,7 @@
 import "./styles/App.css";
 import { useState, useEffect } from "react";
 import Card from "./components/Card.jsx";
+import Header from "./components/Header.jsx";
 
 // utility function to shuffle an array in place using the Fisher-Yates algorithm
 function shuffle(array) {
@@ -72,6 +73,7 @@ function App() {
 
   return (
     <>
+      <Header score={clickedCards.length} bestScore={bestScore} />
       <div className="card-container">
         {imageSrc.map((item) => (
           <Card
