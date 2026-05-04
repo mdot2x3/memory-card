@@ -2,6 +2,7 @@ import "./styles/App.css";
 import { useState, useEffect } from "react";
 import Card from "./components/Card.jsx";
 import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 
 // utility function to shuffle an array in place using the Fisher-Yates algorithm
 function shuffle(array) {
@@ -84,6 +85,7 @@ function App() {
           />
         ))}
       </div>
+      <Footer></Footer>
     </>
   );
 }
