@@ -1,8 +1,8 @@
 function Header({ score, bestScore }) {
   return (
     <div className="header-container">
-      <div className="logo">
-        <p>logo</p>
+      <div className="logo-container">
+        <img src="src/assets/logo.png" alt="" />
       </div>
       <div className="title-container">
         <h1>Jet Set Memory Card Game</h1>
