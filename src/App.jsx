@@ -23,29 +23,34 @@ function App() {
   const [clickedCards, setClickedCards] = useState([]);
   const [bestScore, setBestScore] = useState(0);
 
-  useEffect(() => {
-    async function fetchImages() {
-      try {
-        const response = await fetch(
-          `https://jetsetradio-api.onrender.com/v1/api/graffiti-tags?size=S`,
-        );
-        const fetchData = await response.json();
-        console.log(fetchData);
-        const shuffled = shuffle(fetchData);
-        const selected = shuffled.slice(0, 12);
-        // for each item in selected, map a new object to state
-        setImageSrc(
-          selected.map((item) => ({
-            id: item._id,
-            imageUrl: item.imageUrl,
-            tagName: item.tagName,
-          })),
-        );
-      } catch (error) {
-        console.log(error);
-      }
+  // move fetchImages outside of useEffect to allow gameWon to call it as well
+  async function fetchImages() {
+    try {
+      const response = await fetch(
+        `https://jetsetradio-api.onrender.com/v1/api/graffiti-tags?size=S`,
+      );
+      const fetchData = await response.json();
+      console.log(fetchData);
+      const shuffled = shuffle(fetchData);
+      const selected = shuffled.slice(0, 12);
+      // for each item in selected, map a new object to state
+      setImageSrc(
+        selected.map((item) => ({
+          id: item._id,
+          imageUrl: item.imageUrl,
+          tagName: item.tagName,
+        })),
+      );
+    } catch (error) {
+      console.log(error);
     }
-    fetchImages();
+  }
+
+  useEffect(() => {
+    // call fetchImages like this (immediately-invoked async function expression) to avoid making the useEffect callback async (which is not allowed)
+    (async () => {
+      await fetchImages();
+    })();
   }, []);
 
   const handleClick = (id) => {
@@ -54,22 +59,31 @@ function App() {
   };
 
   const scoreHandler = (id) => {
-    if (clickedCards.includes(id)) {
+    if (
+      clickedCards.length === imageSrc.length - 1 &&
+      !clickedCards.includes(id)
+    ) {
+      gameWon();
+      return;
+    } else if (clickedCards.includes(id)) {
       gameOver();
     } else {
       const newClicked = [...clickedCards, id];
       setClickedCards(newClicked);
       setBestScore((prevBest) => Math.max(prevBest, newClicked.length));
-      console.log(newClicked.length);
-      console.log(bestScore);
     }
   };
 
   const gameOver = () => {
     alert("Game Over. Click OK to try again!");
     setClickedCards([]);
-    console.log(clickedCards.length);
-    console.log(bestScore);
+  };
+
+  const gameWon = () => {
+    alert("Congratulations! You got them all! Click OK to play again!");
+    setClickedCards([]);
+    setBestScore(0);
+    fetchImages();
   };
 
   return (
