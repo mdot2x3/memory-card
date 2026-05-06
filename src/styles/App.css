@@ -97,7 +97,7 @@ body {
   width: 250px;
   padding: 16px;
   padding-top: 26px;
-  background-image: url(src/assets/card.png);
+  background-image: url(../assets/card.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

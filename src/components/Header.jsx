@@ -1,15 +1,14 @@
+import title from "../assets/title.png";
+import logo from "../assets/logo.png";
+
 function Header({ score, bestScore }) {
   return (
     <div className="header-container">
       <div className="logo-container">
-        <img
-          src="src/assets/logo.png"
-          alt="Jet Set Memory Card Game
-"
-        />
+        <img src={logo} alt="Jet Set Rotating Logo" />
       </div>
       <div className="title-container">
-        <img src="src/assets/title.png" alt="" />
+        <img src={title} alt="Jet Set Memory Card Game" />
         <p>
           Earn points by clicking on unique cards. Don't click the same card
           twice!
