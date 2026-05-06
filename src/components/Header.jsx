@@ -2,10 +2,14 @@ function Header({ score, bestScore }) {
   return (
     <div className="header-container">
       <div className="logo-container">
-        <img src="src/assets/logo.png" alt="" />
+        <img
+          src="src/assets/logo.png"
+          alt="Jet Set Memory Card Game
+"
+        />
       </div>
       <div className="title-container">
-        <h1>Jet Set Memory Card Game</h1>
+        <img src="src/assets/title.png" alt="" />
         <p>
           Earn points by clicking on unique cards. Don't click the same card
           twice!
