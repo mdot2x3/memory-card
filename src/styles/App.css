@@ -96,6 +96,11 @@ body {
   height: 300px;
   width: 250px;
   padding: 16px;
+  padding-top: 26px;
+  background-image: url(src/assets/card.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: #046242;
   border: 1px solid black;
   border-radius: 8px;
@@ -106,7 +111,7 @@ body {
     border-color 0.3s;
 }
 .card h2 {
-  margin-top: 40px;
+  margin-top: 24px;
 }
 .card:hover {
   box-shadow:
